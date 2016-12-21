@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public Boundary boundary;
     private Rigidbody rb;
+    public GameController gameController;
 
     void Start()
     {
@@ -19,6 +20,10 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (gameController.gameOver)
+        {
+            speed = 0;
+        }
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
