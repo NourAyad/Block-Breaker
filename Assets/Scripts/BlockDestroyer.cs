@@ -53,7 +53,7 @@ public class BlockDestroyer : MonoBehaviour {
 
     void Reset()
     {
-        Show();
+        //Show();
         blockHealth = blockLives;
         destroyed = false;
     }

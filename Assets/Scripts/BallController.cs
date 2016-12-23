@@ -30,14 +30,20 @@ public class BallController : MonoBehaviour
 	
     void Update ()
     {
-        if (Input.GetButton("Release"))
+        if (Input.GetButton("Release") && !gameController.gameOver)
         {
             released = true;
+        }
+
+        if(gameController.gameOver)
+        {
+            speed = 0;
         }
     }
 	
 	void FixedUpdate ()
     {
+       
         currentVelocity = ballRigidBody.velocity;
         if (!released) {
             ballTransform.position = StartPoint.position;
@@ -45,7 +51,7 @@ public class BallController : MonoBehaviour
             //ballRigidBody.AddForce(0, 0, 100 * speed);
             ballRigidBody.velocity = new Vector3(Random.Range(-1.0f, 1.0f) * speed, 0, 1 * speed);
             currentVelocity = ballRigidBody.velocity;
-            Debug.Log(currentVelocity.x);
+            Debug.Log(gameController.gameOver);
             neverReleased = false;
         }
         if (ballRigidBody.velocity.z >= 0)
@@ -55,8 +61,10 @@ public class BallController : MonoBehaviour
         {
             direction = -1;
         }
-        ballRigidBody.velocity = new Vector3(ballRigidBody.velocity.x, ballRigidBody.velocity.y, direction * Mathf.Clamp(ballRigidBody.velocity.z, speed - 2, speed + 2));
-
+        if (!gameController.gameOver)
+        {
+            ballRigidBody.velocity = new Vector3(ballRigidBody.velocity.x, ballRigidBody.velocity.y, direction * Mathf.Clamp(ballRigidBody.velocity.z, speed - 2, speed + 2));
+        }
         
 	}
 
